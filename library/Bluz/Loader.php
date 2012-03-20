@@ -58,6 +58,20 @@ class Loader
      */
     private $_prefixes = array();
 
+    protected static $_implement = null;
+
+    /**
+     * @static
+     * @return Loader
+     */
+    public static function getLoader()
+    {
+        if (null === self::$_implement) {
+            self::$_implement = new self();
+        }
+        return self::$_implement;
+    }
+
     /**
      * <code>
      *
@@ -106,8 +120,16 @@ class Loader
      */
     public function load($class)
     {
+        if (class_exists($class, false) || interface_exists($class, false)) {
+            return true;
+        }
+
         if ($file = $this->_find($class)) {
-            require $file;
+            require_once $file;
+        }
+
+        if (!class_exists($class, false) && !interface_exists($class, false)) {
+            throw new \Exception("File '$file' does not exist or class '$class' was not found in the file");
         }
     }
 
