@@ -16,19 +16,19 @@
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><? echo $this->ahref('Controls', 'test', 'controls', array())?></li>
-                            <li><? echo $this->ahref('Markup', 'test', 'markup', array())?></li>
+                            <li><?= $this->Ahref('Controls', $this->Url(array('controller' => 'controls'), 'test'))?></li>
+                            <li><?= $this->Ahref('Markup', $this->Url(array('controller' => 'markup'), 'test'));?></li>
                         </ul>
                     </li>
                 </ul>
                 <? if (isset($identity) && $identity) : ?>
                     <p class="navbar-text pull-right">
-                        Logged in as <? echo $this->ahref($identity->login, 'users', 'profile', array('id' => $identity->id))?>
-                        (<a href="<?=$this->url('users', 'logout')?>">logout</a>)
+                        Logged in as <?= $this->Ahref($identity->login, $this->Url(array('id' => $identity->id), 'users-profile'))?>
+                        (<a href="<?= $this->Url(array('controller' => 'logout'), 'users')?>">logout</a>)
                     </p>
                 <? else: ?>
                     <ul class="nav pull-right">
-                        <li><a href="<?=$this->url('users', 'login')?>">Login</a></li>
+                        <li><a href="<?= $this->Url(array('controller' => 'login'), 'users')?>">Login</a></li>
                     </ul>
                 <? endif; ?>
                 <div id="loading"></div>

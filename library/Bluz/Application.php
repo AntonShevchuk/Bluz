@@ -34,7 +34,7 @@ use Bluz\Config\Config as Config;
 use Bluz\Db\Db as Db;
 use Bluz\Registry\Registry as Registry;
 use Bluz\Request as Request;
-use Bluz\Router\Router as Router;
+use Bluz\Router\Container as RouterContainer;
 use Bluz\Session\Session as Session;
 use Bluz\View\View as View;
 
@@ -362,12 +362,14 @@ class Application
     /**
      * getRouter
      *
-     * @return Router
+     * @return \Bluz\Router\Container
      */
     public function getRouter()
     {
         if (!$this->_router) {
-            $this->_router = new Router($this->getConfigData('router'));
+            //$this->_router = new Router($this->getConfigData('router'));
+            $this->_router = new RouterContainer();
+            $this->_router->addRoutes($this->getConfigData('routers'));
             $this->_router->setApplication($this);
         }
         return $this->_router;

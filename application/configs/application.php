@@ -54,7 +54,7 @@ return array(
         "data" => array(
             "title" => "PHP 5.3 Examples",
         ),
-        "viewHelpersPath" => PATH_APPLICATION .'/layouts/helpers',
+        "viewHelpersPath" => array(PATH_APPLICATION .'/layouts/helpers'),
         "viewHelpers" => array(
         ),
     ),

@@ -4,7 +4,7 @@
  * @var \Bluz\View $this
  */
 ?>
-<form action="<?=$this->url('users', 'login')?>" method="post" class="well">
+<form action="<?= $this->url(array('controller' => 'login'), 'users')?>" method="post" class="well">
     <label for="login">Login:</label>
     <input type="text" id="login" name="login" value="" />
     <label for="password">Password:</label>
