@@ -227,7 +227,7 @@ class Application
     public function getLoader()
     {
         if (!$this->_loader) {
-            $this->_loader = new Loader();
+            $this->_loader = Loader::getLoader();
 
             $conf = $this->getConfigData('loader');
             if (isset($conf['namespaces'])) {
@@ -240,8 +240,6 @@ class Application
                     $this->_loader -> registerPrefix($prefix, $path);
                 }
             }
-
-            $this->_loader -> register();
         }
         return $this->_loader;
     }
