@@ -32,6 +32,10 @@ class Router implements RouterInterface
     {
         if (!is_array($options)) throw new \Exception('Options can be array, giving "' . gettype($options) . '"');
 
+        if (empty($options['name'])) {
+            $options['name'] = $options['defaults']['module'] . ':' . $options['defaults']['controller'];
+        }
+
         $this->setName($options['name'])
             ->setRoute($options['route']);
 
@@ -307,6 +311,8 @@ class Router implements RouterInterface
             if (isset($defaults[$param])) {
                 $url = str_replace(':' . $param, $value, $url);
             } else {
+                if ('module' == $param || 'controller' == $param) continue;
+
                 if (!$last) throw new \Exception("Param '{$param}' not set on router", 404);
 
                 $url .= "/{$param}/{$value}";

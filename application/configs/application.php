@@ -72,18 +72,29 @@ return array(
         "baseUrl" => '/',
     ),
     "routers" => array(
-        "default" => array(
+        array(
             "route" => "/",
             "defaults" => array("module" => "index", "controller" => "index")
         ),
-        "test" => array(
-            "route" => "/test/:controller",
+        array(
+            "route" => "/test/controls",
             "defaults" => array("module" => "test", "controller" => "controls")
         ),
-        "users" => array(
-            "route" => "/users/:controller",
+        array(
+            "route" => "/test/markup",
+            "defaults" => array("module" => "test", "controller" => "markup")
+        ),
+        array(
+            "route" => "/users/login",
             "defaults" => array("module" => "users", "controller" => "login"),
-            "reqs" => array("controller" => "login|logout|profile")
+        ),
+        array(
+            "route" => "/users/logout",
+            "defaults" => array("module" => "users", "controller" => "logout"),
+        ),
+        array(
+            "route" => "/users/profile",
+            "defaults" => array("module" => "users", "controller" => "profile"),
         ),
     )
 );
