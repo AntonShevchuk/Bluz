@@ -18,7 +18,7 @@ function (\Bluz\View\View $view, array $params, $name = null)
     $routerContainer = $view->getApplication()->getRouter();
 
     if (null == $name) {
-        $name = $params['module'] . ':' . $params['controller'];
+        $name = $params['module'] . '-' . $params['controller'];
     }
 
     $router = $routerContainer->getRoute($name);

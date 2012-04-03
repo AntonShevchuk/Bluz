@@ -23,27 +23,50 @@ class Router implements RouterInterface
 
 
     /**
-     * $name, $route, $defaults, $reqs
-     *
-     * @throws \Exception
+     * @param $route
      * @param array $options
      */
-    public function __construct(array $options)
+    public function __construct($route, array $options)
     {
         if (!is_array($options)) throw new \Exception('Options can be array, giving "' . gettype($options) . '"');
 
-        if (empty($options['name'])) {
-            $options['name'] = $options['defaults']['module'] . ':' . $options['defaults']['controller'];
+        $module = $this->getConfigParam($options['module']);
+        $controller = $this->getConfigParam($options['controller']);
+
+        $name = (!empty($options['name'])) ? $options['name'] : $module['default'] . '-' . $controller['default'];
+        unset($options['name']);
+
+        $this->setName($name)
+             ->setRoute((string) $route);
+
+        $defaults = $reqs = array();
+
+        foreach ($options as $key => $value) {
+            $value = $this->getConfigParam($value);
+
+            $defaults[$key] = $value['default'];
+            if (!empty($value['reqs'])) $reqs[$key] = $value['reqs'];
         }
 
-        $this->setName($options['name'])
-            ->setRoute($options['route']);
+        $this->setDefaults($defaults)
+             ->setReqs($reqs);
+    }
 
-        if (isset($options['defaults']) && is_array($options['defaults'])) {
-            $this->setDefaults($options['defaults']);
-        }
-        if (isset($options['reqs']) && is_array($options['reqs'])) {
-            $this->setReqs($options['reqs']);
+    /**
+     * Get param default value & request
+     *
+     * @param mixed $param
+     * @return array
+     */
+    private function getConfigParam($param)
+    {
+        if (is_array($param) && sizeof($param) >= 2) {
+            return array(
+                'default'   => array_shift($param),
+                'reqs'      => array_shift($param)
+            );
+        } else {
+            return array('default' => $param);
         }
     }
 

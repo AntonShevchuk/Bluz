@@ -72,6 +72,27 @@ return array(
         "baseUrl" => '/',
     ),
     "routers" => array(
+        '/' => array(
+            'module' => 'index',
+            'controller' => 'index'
+        ),
+
+        '/test/controls' => array(
+            'module' => 'test',
+            'controller' => 'controls'
+        ),
+
+        '/test/markup' => array(
+            'module' => 'test',
+            'controller' => 'markup'
+        ),
+
+        '/users/:controller' => array(
+            'module' => 'users',
+            'controller' => array('login', 'login|logout|profile')
+        ),
+
+        /*
         array(
             "route" => "/",
             "defaults" => array("module" => "index", "controller" => "index")
@@ -96,5 +117,6 @@ return array(
             "route" => "/users/profile",
             "defaults" => array("module" => "users", "controller" => "profile"),
         ),
+        */
     )
 );

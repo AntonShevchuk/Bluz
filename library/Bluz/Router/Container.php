@@ -120,9 +120,8 @@ class Container extends Package
     {
         if (!is_array($routes)) throw new \Exception('$routes can be array, givin "' . gettype($routes) . '"');
 
-        foreach ($routes as $routeName => $routeData) {
-            if (is_int($routeName)) $routeName = null;
-            $this->addRoute(new Router(array_merge(array('name' => $routeName), $routeData)));
+        foreach ($routes as $route => $routeData) {
+            $this->addRoute(new Router($route, $routeData));
         }
 
         return $this;

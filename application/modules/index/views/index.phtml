@@ -1,3 +1,12 @@
 <h2><?=$title?></h2>
 <p><?=$session?></p>
 <? $this->widget('test', 'lorem'); ?>
+
+<br /><br />
+<h3>Url test</h3>
+<p><?= $this->url(array('module' => 'users', 'controller' => 'profile'), 'users-login'); ?></p>
+<p><?= $this->url(array('module' => 'users', 'controller' => 'login')); ?></p>
+
+<br />
+<h3>Test helper</h3>
+<?= $this->test('ss'); ?>

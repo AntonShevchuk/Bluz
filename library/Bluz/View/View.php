@@ -138,16 +138,32 @@ class View extends Package
     public function __call($method, $args)
     {
         $lmethod = strtolower($method);
-        if (isset(self::$_viewHelpers[$lmethod])
-            && self::$_viewHelpers[$lmethod] instanceof \Closure) {
-            array_unshift($args, $this->getApplication()->getView());
-            return call_user_func_array(self::$_viewHelpers[$lmethod], $args);
+        if (isset(self::$_viewHelpers[$lmethod])) {
+            if (self::$_viewHelpers[$lmethod] instanceof \Closure) {
+                array_unshift($args, $this->getApplication()->getView());
+                return call_user_func_array(self::$_viewHelpers[$lmethod], $args);
+            }
+
+            if (self::$_viewHelpers[$lmethod] instanceof \Bluz\View\Helper\HelperAbstract) {
+                return call_user_method_array('toString', self::$_viewHelpers[$lmethod], $args);
+            }
         }
         if (self::$_viewHelpersPath) {
             foreach(self::$_viewHelpersPath as $helperPath) {
                 $helperPath = realpath($helperPath . '/' . ucfirst($method) . '.php');
                 if ($helperPath) {
-                    self::$_viewHelpers[strtolower($method)] = include $helperPath;
+                    $helperInclude = include $helperPath;
+                    if ($helperInclude instanceof \Closure) {
+                        self::$_viewHelpers[strtolower($method)] = $helperInclude;
+                    } elseif (class_exists(ucfirst($method))) {
+                        $className = ucfirst($method);
+                        $helper = new $className();
+                        $helper->setView($this->getApplication()->getView());
+
+                        self::$_viewHelpers[strtolower($method)] = $helper;
+                    } else {
+                        throw new \Exception("View helper '$method' not found");
+                    }
 
                     return $this->__call($method, $args);
                 }
