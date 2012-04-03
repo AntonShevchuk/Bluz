@@ -127,20 +127,17 @@ class Container extends Package
         return $this;
     }
 
-    public function url()
+    public function url($module = 'index', $controller = 'index', $params = array())
     {
-        return '/';
-    }
+        $name = $module . '-' . $controller;
+        $router = $this->getRoute($name);
 
-    /*
-    public function url(array $params, $routerName)
-    {
-        $router = $this->getRoute($routerName);
-        if ($router instanceof RouterInterface) {
+        //@todo Вставить проверку на acl
+
+        if ($router instanceof \Bluz\Router\RouterInterface) {
             return $router->url($params);
         }
 
-        throw new \Exception("Router '{$routerName}' not found", 404);
+        throw new \Exception("Router '{$name}' not found");
     }
-    */
 }

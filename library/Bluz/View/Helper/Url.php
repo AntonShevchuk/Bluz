@@ -13,19 +13,8 @@ return
 /**
  * @return \Closure
  */
-function (\Bluz\View\View $view, array $params, $name = null)
+function (\Bluz\View\View $view, $module, $controller, array $params = array())
 {
     $routerContainer = $view->getApplication()->getRouter();
-
-    if (null == $name) {
-        $name = $params['module'] . '-' . $params['controller'];
-    }
-
-    $router = $routerContainer->getRoute($name);
-
-    if ($router instanceof \Bluz\Router\RouterInterface) {
-        return $router->url($params);
-    } else {
-        throw new \Exception("Router '{$name}' not found");
-    }
+    return $routerContainer->url($module, $controller, $params);
 };

@@ -423,54 +423,6 @@ class View extends Package
     }
 
     /**
-     * A href url
-     *
-     * @param string $name
-     * @param string $module
-     * @param string $controller
-     * @param array $params
-     * @param array $attributes
-     * @return string
-     */
-    /*public function ahref($name, $module = 'index', $controller = 'index', $params = array(), $attributes = array())
-    {
-        if (!$this->getApplication()->isAllowedController($module, $controller)) {
-            return '';
-        }
-
-        $href = $this->getApplication()->getRouter()->url($module, $controller, $params);
-
-        if ($href == $this->getApplication()->getRequest()->getRequestUri()) {
-            if (isset($attributes['class'])) {
-                $attributes['class'] .= ' on';
-            } else {
-                $attributes['class'] = 'on';
-            }
-        }
-        $attrs = array();
-
-        foreach ($attributes as $attr => $value) {
-            $attrs[] = $attr .'="'.$value.'"';
-        }
-
-        return '<a href="'.$href.'" '.join(' ', $attrs).'>'.$name.'</a>';
-    }*/
-
-
-    /**
-     * build url
-     *
-     * @param string $module
-     * @param string $controller
-     * @param array $params
-     * @return string
-     */
-    /*public function url($module = null, $controller = null, $params = null)
-    {
-        return $this->getApplication()->getRouter()->url($module, $controller, $params);
-    }*/
-
-    /**
      * Returns navigation container instance.
      *
      * @param string $section Navigation section

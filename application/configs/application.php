@@ -81,42 +81,22 @@ return array(
             'module' => 'test',
             'controller' => 'controls'
         ),
-
         '/test/markup' => array(
             'module' => 'test',
             'controller' => 'markup'
         ),
 
-        '/users/:controller' => array(
+        '/users/login' => array(
             'module' => 'users',
-            'controller' => array('login', 'login|logout|profile')
+            'controller' => 'login'
         ),
-
-        /*
-        array(
-            "route" => "/",
-            "defaults" => array("module" => "index", "controller" => "index")
+        '/users/logout' => array(
+            'module' => 'users',
+            'controller' => 'logout'
         ),
-        array(
-            "route" => "/test/controls",
-            "defaults" => array("module" => "test", "controller" => "controls")
-        ),
-        array(
-            "route" => "/test/markup",
-            "defaults" => array("module" => "test", "controller" => "markup")
-        ),
-        array(
-            "route" => "/users/login",
-            "defaults" => array("module" => "users", "controller" => "login"),
-        ),
-        array(
-            "route" => "/users/logout",
-            "defaults" => array("module" => "users", "controller" => "logout"),
-        ),
-        array(
-            "route" => "/users/profile",
-            "defaults" => array("module" => "users", "controller" => "profile"),
-        ),
-        */
+        '/users/profile' => array(
+            'module' => 'users',
+            'controller' => 'profile'
+        )
     )
 );

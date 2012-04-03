@@ -12,6 +12,8 @@ return
 
 function (\Bluz\View\View $view, $text, $href, array $attributes = array())
 {
+    if (null === $href) return '';
+    
     if ($href == $view->getApplication()->getRequest()->getRequestUri()) {
         if (isset($attributes['class'])) {
             $attributes['class'] .= ' on';
