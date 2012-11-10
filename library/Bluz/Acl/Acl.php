@@ -50,10 +50,10 @@ class Acl
     {
         if ($privilege) {
             $user = $this->getApplication()->getAuth()->getIdentity();
-            if (!$user || !$user->hasPrivilege($module, $privilege)) {
-                return false;
-            } else {
+            if !(!$user || !$user->hasPrivilege($module, $privilege)) {
                 return true;
+            } else {
+                return false;
             }
         } else {
             return true;
