@@ -52,8 +52,11 @@ class Acl
             $user = $this->getApplication()->getAuth()->getIdentity();
             if (!$user || !$user->hasPrivilege($module, $privilege)) {
                 return false;
+            } else {
+                return true;
             }
+        } else {
+            return true;
         }
-        return true;
     }
 }
