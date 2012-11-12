@@ -48,12 +48,21 @@ class Acl
      */
     public function isAllowed($module, $privilege)
     {
-        if ($privilege) {
+        return (!$privilege || ($this->user() && $this->user()->hasPrivilege($module, $privilege)));
+    }
+
+    /**
+     * Returns a user
+     * 
+     * @return \Bluz\Auth\AbstractEntity|null
+     */
+    private function user()
+    {
+        static $user; // memoization to avoid multiple calculations. 
+        if (!$user)
+        {
             $user = $this->getApplication()->getAuth()->getIdentity();
-            if (!$user || !$user->hasPrivilege($module, $privilege)) {
-                return false;
-            }
         }
-        return true;
+        return $user;
     }
 }
